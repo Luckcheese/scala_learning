@@ -16,6 +16,9 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 .idea
+.classpath
+.project
+.settings
 
 # SO specific
 .DS_Store
