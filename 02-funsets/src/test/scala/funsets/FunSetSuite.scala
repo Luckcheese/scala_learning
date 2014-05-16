@@ -162,4 +162,27 @@ class FunSetSuite extends FunSuite {
       assert(!forall(s123, f), "forall odd 1 2 3")
     }
   }
+
+  test("test if at least one element on the set is even") {
+    new TestSets {
+      val s12 = union(s1, s2)
+      val s13 = union(s1, s3)
+      val s23 = union(s2, s3)
+      val s123 = union(s1, union(s2, s3))
+
+      def f(x: Int) = x%2 == 0
+
+      assert(!exists(s1, f), "exists even 1")
+      assert(exists(s2, f), "exists even 2")
+      assert(!exists(s3, f), "exists even 3")
+
+      assert(exists(s12, f), "exists even 1 2")
+      assert(!exists(s13, f), "exists even 1 3")
+      assert(exists(s23, f), "exists even 2 3")
+
+      assert(exists(s123, f), "exists even 1 2 3")
+    }
+  }
+
+
 }
