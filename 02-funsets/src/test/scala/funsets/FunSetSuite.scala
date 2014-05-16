@@ -184,5 +184,39 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("test the transformation of the set") {
+    new TestSets {
+      val s12 = union(s1, s2)
+      val s13 = union(s1, s3)
+      val s23 = union(s2, s3)
+      val s123 = union(s1, union(s2, s3))
 
+      def t(x: Int) = x*x*x
+      val mapped1 = map(s1, t)
+      val mapped2 = map(s2, t)
+      val mapped3 = map(s3, t)
+
+      val mapped12 = map(s12, t)
+      val mapped13 = map(s13, t)
+      val mapped23 = map(s23, t)
+
+      val mapped123 = map(s123, t)
+
+      assert(mapped1(1), "mapped 1")
+      assert(mapped2(8), "mapped 2")
+      assert(mapped3(27), "mapped 3")
+
+      assert(mapped12(1), "mapped 12")
+      assert(mapped12(8), "mapped 12")
+      assert(!mapped12(27), "mapped 12")
+
+      assert(!mapped23(1), "mapped 23")
+      assert(mapped23(8), "mapped 23")
+      assert(mapped23(27), "mapped 23")
+
+      assert(mapped123(1), "mapped 123")
+      assert(mapped123(8), "mapped 123")
+      assert(mapped123(27), "mapped 123")
+    }
+  }
 }
