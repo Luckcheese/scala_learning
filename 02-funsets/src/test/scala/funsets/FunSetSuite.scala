@@ -142,22 +142,24 @@ class FunSetSuite extends FunSuite {
     }
   }
 
-  test("test if all elements in the set are even") {
+  test("test if all elements in the set are odd") {
     new TestSets {
       val s12 = union(s1, s2)
       val s13 = union(s1, s3)
       val s23 = union(s2, s3)
       val s123 = union(s1, union(s2, s3))
 
-      assert(forall(s1, (x: Int) => x%2 == 1), "forall even 1")
-      assert(!forall(s2, (x: Int) => x%2 == 1), "forall even 2")
-      assert(forall(s3, (x: Int) => x%2 == 1), "forall even 3")
+      def f(x: Int) = x%2 == 1
 
-      assert(!forall(s12, (x: Int) => x%2 == 1), "forall even 1 2")
-      assert(forall(s13, (x: Int) => x%2 == 1), "forall even 1 3")
-      assert(!forall(s23, (x: Int) => x%2 == 1), "forall even 2 3")
+      assert(forall(s1, f), "forall odd 1")
+      assert(!forall(s2, f), "forall odd 2")
+      assert(forall(s3, f), "forall odd 3")
 
-      assert(!forall(s123, (x: Int) => x%2 == 1), "forall even 1 2 3")
+      assert(!forall(s12, f), "forall odd 1 2")
+      assert(forall(s13, f), "forall odd 1 3")
+      assert(!forall(s23, f), "forall odd 2 3")
+
+      assert(!forall(s123, f), "forall odd 1 2 3")
     }
   }
 }
