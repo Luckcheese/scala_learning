@@ -148,10 +148,11 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
    * The following methods are already implemented
    */
 
-  def contains(x: Tweet): Boolean =
+  def contains(x: Tweet): Boolean = {
     if (x.text < elem.text) left.contains(x)
     else if (elem.text < x.text) right.contains(x)
     else true
+  }
 
   def incl(x: Tweet): TweetSet = {
     if (x.text < elem.text) new NonEmpty(elem, left.incl(x), right)
@@ -159,10 +160,11 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     else this
   }
 
-  def remove(tw: Tweet): TweetSet =
+  def remove(tw: Tweet): TweetSet = {
     if (tw.text < elem.text) new NonEmpty(elem, left.remove(tw), right)
     else if (elem.text < tw.text) new NonEmpty(elem, left, right.remove(tw))
     else left.union(right)
+  }
 
   def foreach(f: Tweet => Unit): Unit = {
     f(elem)
@@ -175,11 +177,12 @@ trait TweetList {
   def head: Tweet
   def tail: TweetList
   def isEmpty: Boolean
-  def foreach(f: Tweet => Unit): Unit =
+  def foreach(f: Tweet => Unit): Unit = {
     if (!isEmpty) {
       f(head)
       tail.foreach(f)
     }
+  }
 }
 
 object Nil extends TweetList {
