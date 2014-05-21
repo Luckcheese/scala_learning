@@ -68,7 +68,7 @@ abstract class TweetSet {
    * and be implemented in the subclasses?
    */
   def mostRetweeted: Tweet = {
-    tweetWithMoreRetweets(null)
+    tweetWithMoreRetweets(new Tweet("", "", -1))
   }
 
   def tweetWithMoreRetweets(that: Tweet): Tweet
@@ -161,7 +161,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   def tweetWithMoreRetweets(that: Tweet): Tweet = {
-    left.tweetWithMoreRetweets(right.tweetWithMoreRetweets(if (that == null || elem.retweets > that.retweets) elem else that))
+    left.tweetWithMoreRetweets(right.tweetWithMoreRetweets(if (elem.retweets > that.retweets) elem else that))
   }
 
   def descendingByRetweet: TweetList = {
