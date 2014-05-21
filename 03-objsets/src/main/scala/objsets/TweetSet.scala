@@ -2,6 +2,7 @@ package objsets
 
 import common._
 import TweetReader._
+import java.util.NoSuchElementException
 
 /**
  * A class to represent tweets.
@@ -66,7 +67,11 @@ abstract class TweetSet {
    * Question: Should we implment this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def mostRetweeted: Tweet = ???
+  def mostRetweeted: Tweet = {
+    tweetWithMoreRetweets(null)
+  }
+
+  def tweetWithMoreRetweets(that: Tweet): Tweet
 
   /**
    * Returns a list containing all tweets of this set, sorted by retweet count
@@ -77,7 +82,11 @@ abstract class TweetSet {
    * Question: Should we implment this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def descendingByRetweet: TweetList = ???
+  def descendingByRetweet: TweetList = {
+    val m = tweetWithMoreRetweets(null)
+    if (m != null) new Cons(m, remove(m).descendingByRetweet)
+    else Nil
+  }
 
 
   /**
@@ -118,6 +127,14 @@ class Empty extends TweetSet {
     that
   }
 
+  override def mostRetweeted: Tweet = {
+    throw new java.util.NoSuchElementException("set is empty")
+  }
+
+  def tweetWithMoreRetweets(that: Tweet): Tweet = {
+      that
+  }
+
 
   /**
    * The following methods are already implemented
@@ -141,6 +158,10 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def union(that: TweetSet): TweetSet = {
     left.union(right.union(that.incl(elem)))
+  }
+
+  def tweetWithMoreRetweets(that: Tweet): Tweet = {
+    left.tweetWithMoreRetweets(right.tweetWithMoreRetweets(if (that == null || elem.retweets > that.retweets) elem else that))
   }
 
 
