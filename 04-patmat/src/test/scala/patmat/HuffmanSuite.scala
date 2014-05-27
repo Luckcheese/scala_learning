@@ -76,4 +76,8 @@ class HuffmanSuite extends FunSuite {
       assert(counted.tail.tail.isEmpty)
     }
   }
+
+  test("if tree was created correctly") {
+    assert(createCodeTree(string2Chars("bacbcdc")) === Fork(Leaf('c', 3), Fork(Leaf('b', 2), Fork(Leaf('a', 1), Leaf('d', 1), List('a', 'd'), 2), List('b', 'a', 'd'), 4), List('c', 'b', 'a', 'd'), 7))
+  }
 }
