@@ -44,4 +44,36 @@ class HuffmanSuite extends FunSuite {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
     }
   }
+
+  test("compute how many times each letter appears on the text") {
+    val string: List[Char] = string2Chars("aaaBBBBB")
+    val counted: List[(Char, Int)] = times(string)
+
+    if (counted.head._1 == 'a') {
+      assert(counted.head === ('a', 3))
+      assert(counted.tail.head === ('B', 5))
+      assert(counted.tail.tail.isEmpty)
+    }
+    else {
+      assert(counted.head === ('B', 5))
+      assert(counted.tail.head === ('a', 3))
+      assert(counted.tail.tail.isEmpty)
+    }
+  }
+
+  test("compute how many times each letter appears on the text - 2") {
+    val string: List[Char] = string2Chars("BaBBaBaB")
+    val counted: List[(Char, Int)] = times(string)
+
+    if (counted.head._1 == 'a') {
+      assert(counted.head === ('a', 3))
+      assert(counted.tail.head === ('B', 5))
+      assert(counted.tail.tail.isEmpty)
+    }
+    else {
+      assert(counted.head === ('B', 5))
+      assert(counted.tail.head === ('a', 3))
+      assert(counted.tail.tail.isEmpty)
+    }
+  }
 }
