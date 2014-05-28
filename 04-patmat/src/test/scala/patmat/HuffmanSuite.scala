@@ -89,4 +89,13 @@ class HuffmanSuite extends FunSuite {
       assert(decode(t2, List(0, 0, 1, 1, 0, 1, 1, 0, 1)) === List('a', 'd', 'd', 'b', 'd', 'b'))
     }
   }
+
+  test("encode") {
+    new TestTrees {
+      assert(encode(t1)(List('a', 'b')) === List(0, 1))
+      assert(encode(t1)(List('a', 'a', 'b', 'b', 'a', 'b', 'b', 'a')) === List(0, 0, 1, 1, 0, 1, 1, 0))
+
+      assert(encode(t2)(List('a', 'd', 'd', 'b', 'd', 'b')) === List(0, 0, 1, 1, 0, 1, 1, 0, 1))
+    }
+  }
 }
