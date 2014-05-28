@@ -80,4 +80,13 @@ class HuffmanSuite extends FunSuite {
   test("if tree was created correctly") {
     assert(createCodeTree(string2Chars("bacbcdc")) === Fork(Leaf('c', 3), Fork(Leaf('b', 2), Fork(Leaf('a', 1), Leaf('d', 1), List('a', 'd'), 2), List('b', 'a', 'd'), 4), List('c', 'b', 'a', 'd'), 7))
   }
+
+  test("decode") {
+    new TestTrees {
+      assert(decode(t1, List(0, 1)) === List('a', 'b'))
+      assert(decode(t1, List(0, 0, 1, 1, 0, 1, 1, 0)) === List('a', 'a', 'b', 'b', 'a', 'b', 'b', 'a'))
+
+      assert(decode(t2, List(0, 0, 1, 1, 0, 1, 1, 0, 1)) === List('a', 'd', 'd', 'b', 'd', 'b'))
+    }
+  }
 }
