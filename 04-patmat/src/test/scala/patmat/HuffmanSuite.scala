@@ -99,6 +99,13 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
+  test("convert CodeTree to CodeTable") {
+    new TestTrees {
+      assert(convert(t1) === ('a', List(0)) :: ('b', List(1)) :: Nil)
+      assert(convert(t2) === ('a', List(0, 0)) :: ('b', List(0, 1)) :: ('d', List(1)) :: Nil)
+    }
+  }
+
   test("merge codetables") {
     val left = ('a', List(1, 0)) :: Nil
     val right = ('b', List(0)) :: Nil
