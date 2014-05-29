@@ -260,7 +260,15 @@ object Huffman {
    * use it in the `convert` method above, this merge method might also do some transformations
    * on the two parameter code tables.
    */
-  def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = ???
+  def mergeCodeTables(left: CodeTable, right: CodeTable): CodeTable = {
+
+    def fixCodeTable(a: CodeTable, bitPrefix: Bit): CodeTable = {
+      if (a.isEmpty) List()
+      else (a.head._1, bitPrefix :: a.head._2) :: fixCodeTable(a.tail, bitPrefix)
+    }
+
+    fixCodeTable(left, 0) ::: fixCodeTable(right, 1)
+  }
 
   /**
    * This function encodes `text` according to the code tree `tree`.

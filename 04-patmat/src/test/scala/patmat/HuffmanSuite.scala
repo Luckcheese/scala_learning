@@ -98,4 +98,14 @@ class HuffmanSuite extends FunSuite {
       assert(encode(t2)(List('a', 'd', 'd', 'b', 'd', 'b')) === List(0, 0, 1, 1, 0, 1, 1, 0, 1))
     }
   }
+
+  test("merge codetables") {
+    val left = ('a', List(1, 0)) :: Nil
+    val right = ('b', List(0)) :: Nil
+    val result = ('a', List(0, 1, 0)) :: ('b', List(1, 0)) :: Nil
+    assert(mergeCodeTables(left, right) === result)
+
+    val result2 = ('a', List(0, 0, 1, 0)) :: ('b', List(0, 1, 0)) :: ('a', List(1, 0, 1, 0)) :: ('b', List(1, 1, 0)) :: Nil
+    assert(mergeCodeTables(result, result) === result2)
+  }
 }
