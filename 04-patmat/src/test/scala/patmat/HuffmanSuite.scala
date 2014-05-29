@@ -123,4 +123,13 @@ class HuffmanSuite extends FunSuite {
     val result2 = ('a', List(0, 0, 1, 0)) :: ('b', List(0, 1, 0)) :: ('a', List(1, 0, 1, 0)) :: ('b', List(1, 1, 0)) :: Nil
     assert(mergeCodeTables(result, result) === result2)
   }
+
+  test("quick encode") {
+    new TestTrees {
+      assert(quickEncode(t1)(List('a', 'b')) === List(0, 1))
+      assert(quickEncode(t1)(List('a', 'a', 'b', 'b', 'a', 'b', 'b', 'a')) === List(0, 0, 1, 1, 0, 1, 1, 0))
+
+      assert(quickEncode(t2)(List('a', 'd', 'd', 'b', 'd', 'b')) === List(0, 0, 1, 1, 0, 1, 1, 0, 1))
+    }
+  }
 }
