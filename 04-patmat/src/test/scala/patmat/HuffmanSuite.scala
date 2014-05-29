@@ -99,6 +99,14 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
+  test("code chars to bits using CodeTable") {
+    val codeTable = ('a', List(0, 0, 1, 0)) :: ('b', List(0, 1, 0)) :: ('c', List(1, 0, 1, 0)) :: ('d', List(1, 1, 0)) :: Nil
+    assert(codeBits(codeTable)('a') === List(0, 0, 1, 0))
+    assert(codeBits(codeTable)('b') === List(0, 1, 0))
+    assert(codeBits(codeTable)('c') === List(1, 0, 1, 0))
+    assert(codeBits(codeTable)('d') === List(1, 1, 0))
+  }
+
   test("convert CodeTree to CodeTable") {
     new TestTrees {
       assert(convert(t1) === ('a', List(0)) :: ('b', List(1)) :: Nil)
