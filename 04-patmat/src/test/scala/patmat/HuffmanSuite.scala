@@ -39,8 +39,14 @@ class HuffmanSuite extends FunSuite {
     assert(combine(leaflist) === List(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4)))
   }
 
+  test("singleton of nil") {
+    assert(!singleton(Nil))
+    assert(!singleton(List()))
+  }
+
   test("combine of a singleton or nil") {
     assert(combine(Nil) === Nil)
+    assert(combine(List()) === List())
 
     val leaflist = List(Leaf('e', 1))
     assert(combine(leaflist) === leaflist)
