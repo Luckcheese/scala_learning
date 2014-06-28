@@ -97,4 +97,19 @@ class BloxorzSuite extends FunSuite {
       assert(expected.equals(newNeighbors.toSet), "Fail: " + newNeighbors + " differs " + expected)
     }
   }
+
+
+  trait LevelImpossible extends SolutionChecker {
+    /* terrain for level 1*/
+
+    val level =
+      """ST""".stripMargin
+  }
+
+  test("no possible solution") {
+    new LevelImpossible {
+      assert(solution === Nil)
+    }
+  }
+
 }
